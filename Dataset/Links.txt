@@ -1,1 +1,2 @@
-
+Paper: RawHDR: High Dynamic Range Image Reconstruction from a Single Raw Image--------------- Code: https://github.com/yunhao-zou/RawHDR
+Paper: oint HDR Denoising and Fusion: A Real-World Mobile HDR Image Dataset------------------ Code: https://github.com/shuaizhengliu/Joint-HDRDN
