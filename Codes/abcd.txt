@@ -7,5 +7,7 @@
     Step 5: Integrate denoising with attention mechanisms.
     Step 6: Train and optimize the model using a custom loss function.
 
-Step 1:
+Loss: 
+    Fusion Loss: **L1 Loss, SSIM Loss, HDR Loss (Tone-Mapped L1 Loss)**.  
+    Demosaicing & Denoising Loss: **L1 Loss, Perceptual Loss (VGG-based), Total Variation (TV) Loss, Wavelet Loss**.
   
