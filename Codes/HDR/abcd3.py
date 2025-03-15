@@ -108,21 +108,34 @@ class HDRFusionModule(nn.Module):
         return self.conv2(fused)
 
 # --------------------------------------
-# 5. Training with Random Data
+# 5. Loss Functions
+# --------------------------------------
+def pixel_loss(fake, real):
+    return F.mse_loss(fake, real)
+
+def ssim_loss(fake, real):
+    return 1 - F.l1_loss(rgb_to_grayscale(fake), rgb_to_grayscale(real))
+
+# --------------------------------------
+# 6. Training with Losses
 # --------------------------------------
 batch_size = 4
-image_size = (3, 224, 224)  # RGB images of size 64x64
+image_size = (3, 224, 224)  # RGB images of size 224x224
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 generator = HDRFusionModule(num_feats=64).to(device)
+optimizer = optim.Adam(generator.parameters(), lr=1e-4, betas=(0.5, 0.999))
 
-g_optimizer = optim.Adam(generator.parameters(), lr=1e-4, betas=(0.5, 0.999))
-
-for epoch in range(5):  # Run for fewer epochs just for verification
+for epoch in range(5):  # Run for verification
     l1 = torch.randn(batch_size, *image_size).to(device)
     l2 = torch.randn(batch_size, *image_size).to(device)
     l3 = torch.randn(batch_size, *image_size).to(device)
+    gt = torch.randn(batch_size, *image_size).to(device)
     
+    optimizer.zero_grad()
     fake_hdr = generator(l1, l2, l3)
-    print(f"Epoch {epoch}: Generated HDR Shape: {fake_hdr.shape}")
-
+    loss = pixel_loss(fake_hdr, gt) + 0.1 * ssim_loss(fake_hdr, gt)
+    loss.backward()
+    optimizer.step()
+    
+    print(f"Epoch {epoch}: Loss={loss.item()}")
