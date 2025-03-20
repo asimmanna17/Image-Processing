@@ -1,1 +1,6 @@
-
+Joint HDR Denoising and Fusion: A Real-World Mobile HDR Image Dataset (CVPR2023)
+EAT: Multi-Exposure Image Fusion with Adversarial Learning and Focal Transforme (2025)
+MobileMEF: Fast and Efficient Method for Multi-Exposure Fusion (2025)
+TransMEF: A Transformer-Based Multi-Exposure Image Fusion Framework using Self-Supervised Multi-Task Learning (2022)
+Multi-Exposure Image Fusion via Multi-Scale and Context-Aware Feature Learning (2023)
+An ultra-high-definition multi-exposure image fusion method based on multi-scale feature extraction (2024)
