@@ -58,11 +58,11 @@ class SpatialAttentionModule(nn.Module):
 
 
 class Joint_HDRDN(nn.Module):
-    def __init__(self, args):
+    def __init__(self, n_channel =6, out_channel = 3, embed_dim = 60, depths=[4, 4, 4]):
         super(Joint_HDRDN, self).__init__()
-        self.in_channel = 6#args.n_channel
-        self.out_channel = 3#args.out_channel
-        embed_dim = args.embed_dim
+        self.in_channel = n_channel
+        self.out_channel = out_channel
+        embed_dim = embed_dim
         self.embed_dim = embed_dim
         #################### 1. Pyramid Cross-Attention Alignment Module #############################################
         self.align_head = MultiCrossAlign_head_atttrans_res1sepalign(in_c=self.in_channel, dim_align=self.embed_dim)
@@ -71,7 +71,7 @@ class Joint_HDRDN(nn.Module):
         self.att2 = SpatialAttentionModule(self.embed_dim)
         self.conv_first = nn.Conv2d(self.embed_dim *3, self.embed_dim, 3, 1, 1)
         #################### 3. Context-aware Swin Transformer blocks (CTBs)
-        depths = args.depths
+        depths = depths
         num_heads = [6, 6, 6]
         img_size=128
         patch_size=1

@@ -45,11 +45,10 @@ device = torch.device(f"cuda:{device_ids[0]}" if torch.cuda.is_available() else 
 with open("params.json", "r") as file:
     params = json.load(file)
 
-with open('./opts.pth', 'rb') as f:
-    train_opt = pickle.load(f)
+
 
 ### model uploading #######
-net = Joint_HDRDN(train_opt)
+net = Joint_HDRDN(n_channel =6, out_channel = 3, embed_dim = 60, depths=[4, 4, 4])
 
 
 # Wrap model with DataParallel for multiple GPUs
